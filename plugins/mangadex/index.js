@@ -15,10 +15,11 @@ function getManga(mangaId) {
 
 function formatChapter(json, mangaTitle) {
 	var title = json.attributes.title || "";
-	if (json.attributes.volume)
-		title += ' Vol. ' + json.attributes.volume;
 	if (json.attributes.chapter)
-		title += ' Ch. ' + json.attributes.chapter;
+		title = 'Ch. ' + json.attributes.chapter + ' ' + title;
+	if (json.attributes.volume)
+		title = 'Vol. ' + json.attributes.volume + ' ' + title;
+	title = title.trim();	// Remove trailing whitespace caused by empty title attribute
 	var groupId;
 	for (i = 0; i < json.relationships.length; i++) {
 		const obj = json.relationships[i];
